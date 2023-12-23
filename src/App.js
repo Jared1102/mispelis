@@ -1,9 +1,20 @@
+import { useEffect, useState } from "react";
 import { Create } from "./components/Create";
 import { List } from "./components/List";
 import { Searcher } from "./components/Searcher";
+import { GetLocalStorage } from "./helpers/GetLocalStorage";
 
 function App() {
-  return (
+    const [films,setFilms] = useState([]);
+
+    useEffect(()=>{
+        setFilms(GetLocalStorage('movies'));
+        if(films.length===0){
+            setFilms(null);
+        }
+    },[]);
+
+    return (
 
     <div className="layout">
 
@@ -28,14 +39,14 @@ function App() {
 
         <section id="content" className="content">
             {/*Aqui va el listado de peliculas*/}
-            <List/>
+            <List films={films} setFilms={setFilms}/>
         </section>
 
         {/*Barra lateral */}
         <aside className="lateral">
             <Searcher/>
 
-            <Create/>
+            <Create setFilms={setFilms}/>
         </aside>
         <footer className="footer">
             &copy; MisPelis 2023

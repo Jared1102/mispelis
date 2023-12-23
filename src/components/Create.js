@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
+import { SaveLocalStorage } from '../helpers/SaveLocalStorage';
+import { GetLocalStorage } from '../helpers/GetLocalStorage';
 
-export const Create = () => {
+export const Create = ({setFilms}) => {
     const titleComponent="Añadir pelicula";
     const [film,setFilm]=useState();
 
@@ -15,9 +17,12 @@ export const Create = () => {
             description: data.description.value
         };
 
+        //Guardar estado
         setFilm(movie);
-
-        alert(`Se ha guardado la pelicula ${movie.title}`);
+        
+        //Guardar en LocalStorage
+        SaveLocalStorage('movies',movie);
+        setFilms(GetLocalStorage('movies'));
     };
 
     return (
