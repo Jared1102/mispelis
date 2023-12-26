@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetLocalStorage } from '../helpers/GetLocalStorage';
+import { Edit } from './Edit';
 
 export const List = ({films,setFilms}) => {
 
@@ -20,6 +21,8 @@ export const List = ({films,setFilms}) => {
     localStorage.setItem('movies',JSON.stringify(newMovies));
   };
 
+  const [edit,setEdit] = useState(0);
+
   return (
     <>  
         {films != null ? (
@@ -31,8 +34,15 @@ export const List = ({films,setFilms}) => {
                 {movie.description}
               </p>
 
-              <button className="edit">Editar</button>
+              <button className="edit" onClick={()=>setEdit(movie.id)}>Editar</button>
               <button className="delete" onClick={()=>{deleteMovie(movie.id)}}>Borrar</button>
+              {/*Aparece formulario de editar*/}
+              {edit===movie.id&&(
+                <Edit 
+                    movie={movie}
+                    setEdit={setEdit}
+                    setFilms={setFilms}></Edit>
+              )}
             </article>
           )
         })):

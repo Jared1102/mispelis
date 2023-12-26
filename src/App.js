@@ -9,9 +9,9 @@ function App() {
 
     useEffect(()=>{
         setFilms(GetLocalStorage('movies'));
-        if(films.length===0){
+        /*if(films.length<=0){
             setFilms(null);
-        }
+        }*/
     },[]);
 
     return (
@@ -44,7 +44,10 @@ function App() {
 
         {/*Barra lateral */}
         <aside className="lateral">
-            <Searcher/>
+            <Searcher
+                setFilms={setFilms}
+                films={films}
+            />
 
             <Create setFilms={setFilms}/>
         </aside>
